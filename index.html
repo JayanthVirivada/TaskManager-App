@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taskflow — Task Manager</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NOTIFICATION CONTAINER -->
+  <div id="notification-container"></div>
+
+  
+  <header class="header">
+    <div class="header-left">
+      <span class="logo-mark">✦</span>
+      <h1 class="logo">Taskflow</h1>
+    </div>
+    <div class="header-right">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="search-input" placeholder="Search tasks…" autocomplete="off" />
+      </div>
+      <button id="theme-toggle" class="icon-btn" title="Toggle theme">☽</button>
+      <button id="open-modal-btn" class="btn btn-primary">+ New Task</button>
+    </div>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <main class="main">
+
+    
+    <aside class="sidebar">
+      <p class="sidebar-label">Categories</p>
+      <ul class="category-list" id="category-list">
+        <li class="cat-item active" data-category="all">
+          <span class="cat-dot" style="background:#a78bfa"></span> All Tasks
+          <span class="cat-count" id="count-all">0</span>
+        </li>
+        <li class="cat-item" data-category="Personal">
+          <span class="cat-dot" style="background:#34d399"></span> Personal
+          <span class="cat-count" id="count-Personal">0</span>
+        </li>
+        <li class="cat-item" data-category="Work">
+          <span class="cat-dot" style="background:#60a5fa"></span> Work
+          <span class="cat-count" id="count-Work">0</span>
+        </li>
+        <li class="cat-item" data-category="Urgent">
+          <span class="cat-dot" style="background:#f87171"></span> Urgent
+          <span class="cat-count" id="count-Urgent">0</span>
+        </li>
+      </ul>
+
+      <p class="sidebar-label" style="margin-top:2rem">Sort By Priority</p>
+      <div class="sort-group">
+        <button class="sort-btn active" data-sort="none">Default</button>
+        <button class="sort-btn" data-sort="asc">Low → High</button>
+        <button class="sort-btn" data-sort="desc">High → Low</button>
+      </div>
+
+      <div class="stats-card">
+        <div class="stat-row"><span>Total</span><strong id="stat-total">0</strong></div>
+        <div class="stat-row"><span>Completed</span><strong id="stat-done">0</strong></div>
+        <div class="stat-row"><span>High Priority</span><strong id="stat-high">0</strong></div>
+      </div>
+    </aside>
+
+    
+    <section class="board">
+      <div class="board-header">
+        <h2 id="board-title">All Tasks</h2>
+        <span id="task-count-label"></span>
+      </div>
+      <div id="task-list" class="task-list">
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">◈</div>
+          <p>No tasks yet. Create your first one!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL OVERLAY -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <h2 id="modal-title">New Task</h2>
+        <button id="close-modal-btn" class="icon-btn">✕</button>
+      </div>
+
+      <form id="task-form" novalidate>
+        <input type="hidden" id="edit-task-id" />
+
+        <div class="form-group">
+          <label for="task-title">Title <span class="required">*</span></label>
+          <input type="text" id="task-title" placeholder="What needs to be done?" />
+          <span class="field-error" id="title-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="task-desc">Description</label>
+          <textarea id="task-desc" rows="3" placeholder="Add more detail…"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="task-priority">Priority <span class="required">*</span></label>
+            <select id="task-priority">
+              <option value="">Select…</option>
+              <option value="low">🟢 Low</option>
+              <option value="medium">🟡 Medium</option>
+              <option value="high">🔴 High</option>
+            </select>
+            <span class="field-error" id="priority-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="task-category">Category <span class="required">*</span></label>
+            <select id="task-category">
+              <option value="">Select…</option>
+              <option value="Personal">Personal</option>
+              <option value="Work">Work</option>
+              <option value="Urgent">Urgent</option>
+            </select>
+            <span class="field-error" id="category-error"></span>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="cancel-btn" class="btn btn-ghost">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="submit-btn">Create Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
